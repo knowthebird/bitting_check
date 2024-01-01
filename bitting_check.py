@@ -47,13 +47,12 @@ def find_alternates(bitting, possible_cuts):
     """
     num_pins = len(bitting)
     total_combinations = possible_cuts**num_pins
-    str_key_bitting = [str(i) for i in bitting]
-    string_bitting = int("".join(str_key_bitting),possible_cuts)
-    for i in range(string_bitting+1, total_combinations):
+    for i in range(total_combinations):
         alternate_bitting = convert_to_base(i, possible_cuts)
         alternate_bitting = alternate_bitting.zfill(num_pins)
-        if check_key(bitting, alternate_bitting):
-            yield alternate_bitting
+        if not([int(l) for l in alternate_bitting] == bitting):
+            if check_key(bitting, alternate_bitting):
+                yield alternate_bitting
 
 def get_total_unique(number_pins, number_cuts):
     """ Function returns total number of bittings which are unique in that no
